@@ -84,7 +84,7 @@ module.exports = function (config) {
     web.start(config.web, webIp, mailserver, config.webUser, config.webPass, config.basePathname)
 
     if (config.open) {
-      const open = require('open')
+      const open = require('opn')
       open('http://' + (config.ip === '0.0.0.0' ? 'localhost' : config.ip) + ':' + config.web)
     }
 
@@ -93,7 +93,7 @@ module.exports = function (config) {
   }
 
   function shutdown () {
-    logger.info(`Recieved shutdown signal, shutting down now...`)
+    logger.info(`Received shutdown signal, shutting down now...`)
     async.parallel([
       mailserver.close,
       web.close
