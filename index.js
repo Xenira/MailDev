@@ -44,6 +44,9 @@ module.exports = function (config) {
       .option('-o, --open', 'Open the Web GUI after startup')
       .option('-v, --verbose')
       .option('--silent')
+      .option('--ssl', 'Enable ssl in mailserver')
+      .option('--ssl-cert <file>', 'Certificate file for encrypted connections', __dirname + '/dev.crt')
+      .option('--ssl-key <file>', 'Private Key file for encrypted connections', __dirname + '/dev.key')
       .parse(process.argv)
   }
 
@@ -54,7 +57,7 @@ module.exports = function (config) {
   }
 
   // Start the Mailserver & Web GUI
-  mailserver.create(config.smtp, config.ip, config.incomingUser, config.incomingPass, config.hideExtensions)
+  mailserver.create(config.smtp, config.ip, config.incomingUser, config.incomingPass, config.ssl, config.sslCert, config.sslKey, config.hideExtensions)
 
   if (config.outgoingHost ||
       config.outgoingPort ||
